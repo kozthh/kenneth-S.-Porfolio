@@ -1,0 +1,603 @@
+/* --- Global & Layout --- */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif; /* A modern font */
+    display: flex; 
+    background-color: #121826;
+    
+    /* 1. Enable Smooth Scrolling for Navigation Links */
+    scroll-behavior: smooth; 
+}
+
+/* --- Fixed Sidebar (Navigation) --- */
+.sidebar {
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 300px;
+    height: 100vh;
+    background: linear-gradient(180deg, #00C6FF 0%, #0072FF 100%);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 50px;
+    z-index: 10; /* Ensure sidebar stays on top */
+}
+
+.profile-image img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid white;
+    margin-bottom: 50px;
+}
+
+.nav-links {
+    list-style: none;
+    padding: 0;
+    text-align: center;
+    width: 100%;
+}
+
+.nav-links li {
+    margin-bottom: 25px;
+    position: relative; 
+    overflow: hidden; 
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: white;
+    font-size: 1.1em;
+    font-weight: bold;
+    letter-spacing: 2px;
+    display: block; 
+    padding: 8px 0;
+    position: relative;
+    z-index: 2; 
+    /* UPDATED: Added transform for smooth scaling */
+    transition: color 0.3s, transform 0.3s;
+}
+
+/* 2. Connected Animation Transition (Sliding Background Highlight) */
+.nav-links a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.15); /* Light translucent white highlight */
+    transform: translateX(-100%); /* Start off-screen to the left */
+    transition: transform 0.3s ease-out; /* Transition for the sliding effect */
+    z-index: 1;
+}
+
+.nav-links a:hover::before {
+    transform: translateX(0); /* Slide in the background on hover */
+}
+
+.nav-links a:hover {
+    color: #f0f0f0; /* Slightly lighter text on hover */
+    transform: scale(1.05); /* NEW: Slight zoom/scale up on hover */
+}
+
+/* --- Main Content Area --- */
+.main-content {
+    /* Use scroll-padding-top to prevent the fixed sidebar from obscuring the anchored section title */
+    scroll-padding-top: 20px; 
+    margin-left: 300px; 
+    width: calc(100% - 300px); 
+    padding: 60px 80px; 
+    background-color: #121826; 
+    color: #E0E0E0; 
+}
+
+/* --- 1. About Section --- */
+.main-content h1 {
+    font-size: 4em;
+    color: #FFFFFF;
+    margin-bottom: 5px;
+}
+
+.main-content .subtitle {
+    font-size: 1.2em;
+    color: #00C6FF; 
+    font-weight: 500;
+    margin-bottom: 30px;
+}
+
+.bio-section p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: #a9b3c6;
+}
+
+.social-icons {
+    margin-top: 30px;
+    display: flex;
+    gap: 15px;
+}
+
+.social-icons .icon {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 1.2em;
+    color: #121826;
+    text-decoration: none;
+    font-weight: bold;
+    background-color: #E0E0E0;
+    transition: transform 0.3s;
+}
+
+.social-icons .icon:hover {
+    transform: scale(1.1);
+}
+
+/* --- Section Divider --- */
+.section-divider {
+    border: none;
+    height: 1px;
+    background-color: #2a3447;
+    margin: 120px 0; /* INCREASED MARGIN for more separation */
+}
+
+/* --- General Section Titles --- */
+.expertise-section .section-title, .experiences-section .section-title, .education-section .section-title, .portfolio-section .section-title, .contact-section .section-title {
+    text-align: center;
+    font-size: 2.5em;
+    color: #FFFFFF;
+    margin-bottom: 50px;
+}
+
+/* --- 2. Expertise Section (Cards) --- */
+.expertise-grid {
+    /* Set to 2x2 grid for the 4 cards */
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+}
+
+.expertise-card {
+    background-color: #1a2233;
+    border: 1px solid #2a3447;
+    border-radius: 10px;
+    padding: 30px;
+    transition: border-color 0.3s, transform 0.3s;
+}
+
+.expertise-card:hover {
+    border-color: #00AFFF;
+    transform: translateY(-5px);
+}
+
+.expertise-card .card-icon {
+    color: #00AFFF;
+    margin-bottom: 20px;
+}
+
+.expertise-card .card-icon svg {
+    width: 32px;
+    height: 32px;
+}
+
+.expertise-card h3 {
+    font-size: 1.5em;
+    color: #E0E0E0;
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.expertise-card p {
+    color: #a9b3c6;
+    font-size: 1em;
+    line-height: 1.5;
+    margin-bottom: 25px;
+}
+
+.skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.skill-tags span {
+    background-color: #2a3447;
+    color: #a9b3c6;
+    padding: 5px 12px;
+    border-radius: 5px;
+    font-size: 0.85em;
+    font-weight: 500;
+}
+
+/* --- 3. Experiences Section (Timeline) --- */
+
+.timeline {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.timeline::after {
+    content: '';
+    position: absolute;
+    width: 2px;
+    background-color: #2a3447;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    margin-left: -1px;
+}
+
+.timeline-item {
+    padding: 10px 40px;
+    position: relative;
+    background-color: inherit;
+    width: 50%;
+    box-sizing: border-box;
+}
+
+/* Left side of the timeline */
+.timeline-item:nth-child(odd) {
+    left: 0;
+    padding-right: 60px;
+    text-align: right;
+}
+
+/* Right side of the timeline */
+.timeline-item:nth-child(even) {
+    left: 50%;
+    padding-left: 60px;
+    text-align: left;
+}
+
+.timeline-dot {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    right: -8px;
+    background-color: #00AFFF;
+    border: 3px solid #121826; /* Match background for floating effect */
+    top: 25px;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.timeline-item:nth-child(even) .timeline-dot {
+    left: -8px;
+}
+
+.timeline-content {
+    padding: 20px 30px;
+    background-color: #1a2233;
+    border-radius: 8px;
+    border: 1px solid #2a3447;
+    position: relative;
+}
+
+.experience-title {
+    color: #00C6FF;
+    font-size: 1.4em;
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.experience-company {
+    font-style: italic;
+    color: #E0E0E0;
+    margin: 0 0 5px 0;
+}
+
+.experience-duration {
+    color: #a9b3c6;
+    font-size: 0.9em;
+    margin-bottom: 15px;
+}
+
+.experience-duties {
+    text-align: left;
+    color: #a9b3c6;
+    padding-left: 20px;
+}
+
+.experience-duties li {
+    margin-bottom: 5px;
+}
+
+.timeline-item:nth-child(odd) .experience-duties {
+    text-align: right; /* Adjust bullet list alignment for left items */
+    list-style-position: inside;
+}
+
+.timeline-item:nth-child(odd) .timeline-content {
+    /* Arrow for left side */
+    box-shadow: -10px 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.timeline-item:nth-child(even) .timeline-content {
+    /* Arrow for right side */
+    box-shadow: 10px 0 15px rgba(0, 0, 0, 0.2);
+}
+
+
+/* --- 4. Education Section --- */
+.education-grid {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+}
+
+.education-item {
+    display: flex;
+    align-items: center;
+    background-color: #1a2233;
+    border: 1px solid #2a3447;
+    border-radius: 10px;
+    padding: 20px;
+    width: 45%;
+}
+
+.school-logo img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    margin-right: 20px;
+    border-radius: 5px;
+}
+
+.education-details .degree {
+    color: #00C6FF;
+    font-size: 1.3em;
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.education-details .institution {
+    font-weight: 600;
+    color: #E0E0E0;
+    margin: 0;
+}
+
+.education-details .duration {
+    color: #a9b3c6;
+    font-size: 0.9em;
+    margin-top: 5px;
+}
+
+
+/* --- 5. Portfolio Section (Download Button) --- */
+.portfolio-section {
+    text-align: center;
+}
+
+.resume-actions {
+    margin-top: 40px;
+    margin-bottom: 40px; 
+}
+
+.download-btn {
+    display: inline-block;
+    text-decoration: none;
+    background-color: #00AFFF; /* Bright blue accent */
+    color: #121826; /* Dark text on bright button */
+    padding: 15px 30px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1.1em;
+    letter-spacing: 0.5px;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 15px rgba(0, 175, 255, 0.4);
+}
+
+.download-btn:hover {
+    background-color: #0099E6;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 175, 255, 0.6);
+}
+
+/* --- 6. Contact Section Styles --- */
+
+.contact-subtitle {
+    text-align: center;
+    color: #a9b3c6;
+    margin-bottom: 40px;
+    font-size: 1.1em;
+}
+
+.contact-details-grid {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 50px;
+}
+
+.contact-item {
+    text-align: center;
+    color: #E0E0E0;
+    font-size: 1.1em;
+}
+
+.contact-item a {
+    color: #00AFFF;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.contact-item a:hover {
+    color: #00C6FF;
+}
+
+.contact-icon {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #1a2233;
+    border: 2px solid #00C6FF;
+    color: #00C6FF;
+    margin-bottom: 10px;
+}
+
+.contact-icon svg {
+    width: 24px;
+    height: 24px;
+}
+
+.contact-form {
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form textarea {
+    padding: 15px;
+    border: 1px solid #2a3447;
+    border-radius: 8px;
+    background-color: #1a2233;
+    color: #E0E0E0;
+    font-size: 1em;
+    transition: border-color 0.3s;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    outline: none;
+    border-color: #00AFFF;
+}
+
+.contact-form textarea {
+    resize: vertical;
+}
+
+.send-btn {
+    align-self: flex-start; /* Aligns the button to the left */
+    background-color: #00AFFF;
+    color: #121826;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.send-btn:hover {
+    background-color: #0099E6;
+    transform: translateY(-1px);
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 1024px) {
+    .sidebar {
+        width: 250px;
+    }
+
+    .main-content {
+        margin-left: 250px;
+        padding: 40px 50px;
+    }
+    
+    .expertise-grid {
+        grid-template-columns: 1fr; /* Stack expertise cards on smaller screens */
+    }
+
+    .timeline::after {
+        left: 30px; /* Move timeline line to the left */
+    }
+
+    .timeline-item {
+        width: 100%;
+        padding-left: 60px;
+        padding-right: 15px;
+    }
+
+    .timeline-item:nth-child(odd) {
+        text-align: left;
+        padding-right: 15px;
+    }
+
+    .timeline-item:nth-child(odd) .timeline-dot, 
+    .timeline-item:nth-child(even) .timeline-dot {
+        left: 22px;
+        right: auto;
+    }
+
+    .timeline-item:nth-child(odd) .experience-duties {
+        text-align: left; /* Fix list alignment */
+    }
+
+    .timeline-item:nth-child(odd) .timeline-content,
+    .timeline-item:nth-child(even) .timeline-content {
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Remove horizontal shadows for mobile */
+    }
+
+    .education-grid {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .education-item {
+        width: 100%;
+    }
+
+    .contact-details-grid {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        position: static; /* Make sidebar static on very small screens */
+        width: 100%;
+        height: auto;
+        padding: 20px 0;
+    }
+    
+    .profile-image {
+        display: none; /* Hide profile image in small screens */
+    }
+
+    .nav-links {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .nav-links li {
+        margin: 5px 10px;
+    }
+    
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+        padding: 30px 20px;
+    }
+
+    .main-content h1 {
+        font-size: 3em;
+    }
+
+    .main-content .subtitle {
+        font-size: 1em;
+    }
+
+    .section-divider {
+        margin: 80px 0; /* Less margin on mobile */
+    }
+}
